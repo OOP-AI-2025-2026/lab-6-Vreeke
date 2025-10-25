@@ -34,7 +34,6 @@ public class SortingList extends Application {
     /*
      * Цей метод запускається, коли запускається ваш додаток.
      * Stage - клас "підмостки". Вважайте, що це щось подібне до вікна додатку.
-     * Просто в JavaFX вікно називається "підмостками", як театральні підмостки.
      * Найперші "підмостки" (перше вікно програми) створює за вас система і передає
      * його вам як вхідний параметр. Якщо ви захочете створити додаткові "підмостки"
      * - ви повинні зробити це самі
@@ -118,19 +117,36 @@ public class SortingList extends Application {
         // Обробка натискання кнопки за допомогою об'єкта анонімного класу,
         // реалізує інтерфейс Comparable
 
-        final boolean[] order = {true};
+        // використовуємо окремий стан напряму сортування для кожної кнопки
+        final boolean[] orderName = {true};
+        final boolean[] orderLastName = {true};
+        final boolean[] orderMark = {true};
 
         sortByNameButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                students.sort(new NameSorter(order[0]));
-                order[0] = !order[0];
+                students.sort(new NameSorter(orderName[0]));
+                orderName[0] = !orderName[0];
             }
         });
 
         // TODO: Обробка натискання на кнопку "Сортувати за прізвищем"
+        sortByLastNameButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                students.sort(new LastNameSorter(orderLastName[0]));
+                orderLastName[0] = !orderLastName[0];
+            }
+        });
 
         // TODO: Обробка натискання на кнопку "Сортувати за оцінкою"
+        sortByMarkButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                students.sort(new MarkSorter(orderMark[0]));
+                orderMark[0] = !orderMark[0];
+            }
+        });
 
         // Створюємо горизонтальний ряд
         HBox hb = new HBox();
